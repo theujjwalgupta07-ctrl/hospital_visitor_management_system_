@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MediVisit HQ hospital visitor management">
+  <title>MediVisit HQ | Visitor Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Simple entry screen -->
+  <section id="loginPage" class="login-page">
+    <div class="login-visual">
+      <div class="brand brand-light"><span class="brand-icon">✚</span> MEDIVISIT <b>HQ</b></div>
+      <div class="hero-copy">
+        <span class="eyebrow">SMARTER HOSPITAL OPERATIONS</span>
+        <h1>Every visit.<br><em>Well managed.</em></h1>
+        <p>A calmer, clearer way to welcome visitors and keep hospital entry records organised.</p>
+      </div>
+      <div class="visual-foot">● Secure visitor records <span>● Simple check-in flow</span></div>
+    </div>
+    <div class="login-panel">
+      <div class="login-top"><div class="brand"><span class="brand-icon">✚</span> MEDIVISIT <b>HQ</b></div><span class="online-label">● SYSTEM ONLINE</span></div>
+      <div class="login-content">
+        <span class="eyebrow">WELCOME TO THE VISITOR DESK</span>
+        <h2>Sign in to continue</h2>
+        <p>Enter your name to open the visitor management desk.</p>
+        <form id="loginForm">
+          <label for="staffName">Your name</label>
+          <input id="staffName" type="text" placeholder="e.g. Alex Morgan" required autocomplete="name">
+          <button class="btn btn-primary btn-wide" type="submit">Enter visitor desk <span>→</span></button>
+        </form>
+        <small class="login-hint">Demo access · No password required</small>
+      </div>
+      <div class="login-footer"><span>MEDIVISIT HQ</span><span>VISITOR MANAGEMENT</span></div>
+    </div>
+  </section>
+
+  <!-- Main application: navigation changes the page view without requiring more frontend files -->
+  <div id="appShell" class="app-shell hidden">
+    <aside class="sidebar">
+      <a class="brand brand-light logo-link" href="#dashboard"><span class="brand-icon">✚</span> MEDIVISIT <b>HQ</b></a>
+      <div class="side-caption">WORKSPACE</div>
+      <nav class="side-nav">
+        <a href="#dashboard" class="nav-link" data-route="dashboard"><span class="nav-symbol">▦</span> Overview</a>
+        <a href="#checkin" class="nav-link" data-route="checkin"><span class="nav-symbol">＋</span> New check-in</a>
+        <a href="#visitors" class="nav-link" data-route="visitors"><span class="nav-symbol">♙</span> Visitor records</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="staff-profile"><div class="staff-avatar" id="staffAvatar">S</div><div><b id="staffNameSide">Staff member</b><small>Front desk</small></div></div>
+        <button class="logout-button" id="logoutButton">↗ Sign out</button>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div><span class="eyebrow" id="pageEyebrow">VISITOR OPERATIONS</span><h1 id="pageTitle">Overview</h1></div>
+        <div class="topbar-right"><span class="live-pill"><i></i> Live system</span><div class="staff-avatar mini" id="staffAvatarTop">S</div></div>
+      </header>
+
+      <!-- Dashboard page -->
+      <section class="page-view" id="dashboardView">
+        <div class="welcome-row">
+          <div><span class="eyebrow">VISITOR DESK</span><h2>Good to have you here<span class="blue-dot">.</span></h2><p>Here’s what’s happening at your hospital today.</p></div>
+          <a class="btn btn-primary" href="#checkin">＋ Register visitor</a>
+        </div>
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-icon icon-blue">♙</div><span>Total visitors</span><strong id="totalStat">—</strong><small>All recorded visits</small></article>
+          <article class="stat-card"><div class="stat-icon icon-purple">◷</div><span>Today's visits</span><strong id="todayStat">—</strong><small>Visits registered today</small></article>
+          <article class="stat-card"><div class="stat-icon icon-green">⌁</div><span>Currently inside</span><strong id="insideStat">—</strong><small>Awaiting check-out</small></article>
+          <article class="stat-card"><div class="stat-icon icon-orange">✓</div><span>Completed visits</span><strong id="completedStat">—</strong><small>Checked out successfully</small></article>
+        </div>
+        <section class="surface-card">
+          <div class="section-heading"><div><h3>Recent visitor activity</h3><p>Latest entries added to the system</p></div><a class="simple-link" href="#visitors">View all records →</a></div>
+          <div class="table-scroll"><table><thead><tr><th>VISITOR</th><th>PATIENT</th><th>DEPARTMENT</th><th>CHECK-IN</th><th>STATUS</th></tr></thead><tbody id="recentRows"><tr><td colspan="5" class="empty-cell">Loading visitor records…</td></tr></tbody></table></div>
+        </section>
+      </section>
+
+      <!-- New check-in page -->
+      <section class="page-view hidden" id="checkinView">
+        <div class="form-layout">
+          <section class="surface-card form-card">
+            <div class="section-heading"><div><h3>Visitor information</h3><p>Enter the details below to register a hospital visit.</p></div><span class="tag">NEW ENTRY</span></div>
+            <form id="visitorForm">
+              <div class="form-grid">
+                <div class="field"><label for="visitor_name">Visitor full name *</label><input id="visitor_name" name="visitor_name" placeholder="Enter visitor's name" required></div>
+                <div class="field"><label for="phone">Mobile number *</label><input id="phone" name="phone" type="tel" inputmode="tel" pattern="[0-9+ -]{8,16}" placeholder="Enter contact number" required></div>
+                <div class="field"><label for="patient_name">Patient name *</label><input id="patient_name" name="patient_name" placeholder="Who are you visiting?" required></div>
+                <div class="field"><label for="department">Department *</label><select id="department" name="department" required><option value="">Select department</option><option>General Medicine</option><option>Emergency</option><option>Cardiology</option><option>Orthopaedics</option><option>Paediatrics</option><option>Neurology</option><option>ICU</option><option>Other</option></select></div>
+                <div class="field"><label for="purpose">Purpose of visit *</label><input id="purpose" name="purpose" placeholder="e.g. Patient visit, enquiry" required></div>
+                <div class="field"><label for="visit_date">Visit date *</label><input id="visit_date" name="visit_date" type="date" required></div>
+              </div>
+              <div class="form-actions"><button class="btn btn-outline" type="reset">Clear form</button><button class="btn btn-primary" id="saveVisitorButton" type="submit">Save visitor record <span>→</span></button></div>
+              <p id="formMessage" class="form-message" role="status"></p>
+            </form>
+          </section>
+          <aside class="tip-card"><div class="tip-icon">✦</div><h3>A smoother welcome starts here.</h3><p>Once saved, the visitor appears in your records and dashboard automatically.</p><div class="tip-divider"></div><div class="tip-step"><b>01</b> Enter visitor details</div><div class="tip-step"><b>02</b> Save the check-in</div><div class="tip-step"><b>03</b> Check out when the visit ends</div></aside>
+        </div>
+      </section>
+
+      <!-- Visitor records page -->
+      <section class="page-view hidden" id="visitorsView">
+        <section class="surface-card records-card">
+          <div class="section-heading"><div><h3>All visitor history</h3><p>Search, review and manage every recorded visit.</p></div><span class="tag" id="recordCount">0 RECORDS</span></div>
+          <div class="toolbar"><div class="search-field"><span>⌕</span><input id="searchInput" placeholder="Search name, patient, phone or department…"></div><select id="statusFilter" aria-label="Filter by status"><option value="All">All statuses</option><option value="Inside">Inside</option><option value="Checked out">Checked out</option></select></div>
+          <div class="table-scroll"><table><thead><tr><th>VISITOR DETAILS</th><th>PATIENT</th><th>DEPARTMENT</th><th>DATE / TIME</th><th>STATUS</th><th>ACTION</th></tr></thead><tbody id="visitorRows"><tr><td colspan="6" class="empty-cell">Loading records…</td></tr></tbody></table></div>
+          <p class="privacy-note">Classroom demo: use fictional visitor information. Do not enter real patient-sensitive data.</p>
+        </section>
+      </section>
+      <footer class="app-footer">MediVisit HQ <span>·</span> Visitor management workspace</footer>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="javascript.js"></script>
+</body>
+</html>
